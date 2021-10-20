@@ -69,8 +69,8 @@ display:
         options:
           view_modes:
             'entity:node':
-              article: search_result
-              page: search_result
+              article: teaser
+              page: teaser
       fields:
         body:
           table: search_api_index_solr_index
