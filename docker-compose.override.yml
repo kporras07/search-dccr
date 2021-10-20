@@ -1,7 +1,0 @@
-
-version: "3.6"
-
-services:
-  solr:
-    volumes:
-      - '../../../../docker/solr/config:/config'
