@@ -4,9 +4,12 @@ status: true
 dependencies:
   module:
     - search_api_solr
-    - search_api
     - node
+    - search_api
   config:
+    - field.storage.node.body
+    - field.storage.node.field_feed_source
+    - field.storage.node.field_source_link
     - search_api.server.database
 third_party_settings:
   search_api_solr:
@@ -53,7 +56,82 @@ id: db_index
 name: 'DB Index'
 description: ''
 read_only: false
-field_settings: {  }
+field_settings:
+  body:
+    label: Body
+    datasource_id: 'entity:node'
+    property_path: body
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.body
+  created:
+    label: 'Authored on'
+    datasource_id: 'entity:node'
+    property_path: created
+    type: date
+    dependencies:
+      module:
+        - node
+  field_feed_source:
+    label: 'Feed Source'
+    datasource_id: 'entity:node'
+    property_path: field_feed_source
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_feed_source
+  field_source_link:
+    label: 'Source Link'
+    datasource_id: 'entity:node'
+    property_path: field_source_link
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_source_link
+  node_grants:
+    label: 'Node access information'
+    property_path: search_api_node_grants
+    type: string
+    indexed_locked: true
+    type_locked: true
+    hidden: true
+  status:
+    label: null
+    datasource_id: 'entity:node'
+    property_path: status
+    type: boolean
+    indexed_locked: true
+    type_locked: true
+    dependencies:
+      module:
+        - node
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+    dependencies:
+      module:
+        - node
+  type:
+    label: 'Content type'
+    datasource_id: 'entity:node'
+    property_path: type
+    type: string
+    dependencies:
+      module:
+        - node
+  uid:
+    label: null
+    datasource_id: 'entity:node'
+    property_path: uid
+    type: integer
+    indexed_locked: true
+    type_locked: true
+    dependencies:
+      module:
+        - node
 datasource_settings:
   'entity:node':
     bundles:
@@ -65,9 +143,106 @@ datasource_settings:
 processor_settings:
   add_url: {  }
   aggregated_field: {  }
+  content_access:
+    weights:
+      preprocess_query: -30
+  ignorecase:
+    all_fields: false
+    fields:
+      - body
+      - field_feed_source
+      - field_source_link
+      - title
+      - type
+    weights:
+      preprocess_index: -20
+      preprocess_query: -20
   language_with_fallback: {  }
   rendered_item: {  }
-  solr_date_range: {  }
+  solr_date_range:
+    weights:
+      preprocess_index: 0
+  stemmer:
+    all_fields: false
+    fields:
+      - body
+      - field_feed_source
+      - title
+    exceptions:
+      mexican: mexic
+      texan: texa
+    weights:
+      preprocess_index: 0
+      preprocess_query: 0
+  stopwords:
+    all_fields: false
+    fields:
+      - body
+      - field_feed_source
+      - title
+    stopwords:
+      - a
+      - an
+      - and
+      - are
+      - as
+      - at
+      - be
+      - but
+      - by
+      - for
+      - if
+      - in
+      - into
+      - is
+      - it
+      - 'no'
+      - not
+      - of
+      - 'on'
+      - or
+      - s
+      - such
+      - t
+      - that
+      - the
+      - their
+      - then
+      - there
+      - these
+      - they
+      - this
+      - to
+      - was
+      - will
+      - with
+    weights:
+      preprocess_index: -5
+      preprocess_query: -2
+  tokenizer:
+    all_fields: false
+    fields:
+      - body
+      - field_feed_source
+      - title
+    ignored: ._-
+    spaces: ''
+    overlap_cjk: 1
+    minimum_word_size: '3'
+    weights:
+      preprocess_index: -6
+      preprocess_query: -6
+  transliteration:
+    all_fields: false
+    fields:
+      - body
+      - field_feed_source
+      - field_source_link
+      - title
+      - type
+    weights:
+      preprocess_index: -20
+      preprocess_query: -20
 tracker_settings:
   default:
     indexing_order: fifo
