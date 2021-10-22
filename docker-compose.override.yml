@@ -4,3 +4,19 @@ services:
   solr:
     volumes:
       - '../../../../solr/config:/config'
+  elasticsearch:
+    image: elasticsearch:${ELASTICSEARCH_TAG}
+    container_name: ${PROJECT_NAME}_elasticsearch
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "${PORT_PREFIX}92:9200"
+      - "${PORT_PREFIX}93:9300"
+    labels:
+      - traefik.http.routers.elasticsearch-${PROJECT_NAME}.rule=Host(`elasticsearch.${VIRTUAL_HOST}`)
+      - traefik.http.services.elasticsearch-${PROJECT_NAME}.loadbalancer.server.port=9200
+      - traefik.http.routers.elasticsearch-ssl-${PROJECT_NAME}.rule=Host(`elasticsearch.${VIRTUAL_HOST}`)
+      - traefik.http.routers.elasticsearch-ssl-${PROJECT_NAME}.tls=true
+    networks:
+      - internal
+      - chirripo_proxy
