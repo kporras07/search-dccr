@@ -1,0 +1,19 @@
+uuid: 2fe2cc83-bdd9-47f9-9243-7e91347cd590
+langcode: en
+status: '1'
+dependencies: {  }
+cluster_id: local
+name: Local
+url: 'http://elasticsearch:9200'
+options:
+  multiple_nodes_connection: false
+  use_authentication: 0
+  authentication_type: Basic
+  username: ''
+  password: ''
+  timeout: '3'
+  rewrite:
+    rewrite_index: 0
+    index:
+      prefix: ''
+      suffix: ''
