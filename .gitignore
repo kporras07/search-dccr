@@ -4,6 +4,7 @@ bin
 
 # Ignore configuration files that may contain sensitive information.
 local.settings.php
+settings.local.php
 local.drush.yml
 local.site.yml
 local.services.yml

@@ -1,10 +1,10 @@
 <?php
 
-// phpcs:ignoreFile
+// @codingStandardsIgnoreFile
 
 /**
  * @file
- * Local development override configuration feature.
+ * Local development override configuration feature. 
  *
  * To activate this feature, copy and rename it such that its path plus
  * filename is 'sites/default/settings.local.php'. Then, go to the bottom of
@@ -131,25 +131,23 @@ $settings['rebuild_access'] = TRUE;
 $settings['skip_permissions_hardening'] = TRUE;
 
 /**
- * Exclude modules from configuration synchronization.
- *
- * On config export sync, no config or dependent config of any excluded module
- * is exported. On config import sync, any config of any installed excluded
- * module is ignored. In the exported configuration, it will be as if the
- * excluded module had never been installed. When syncing configuration, if an
- * excluded module is already installed, it will not be uninstalled by the
- * configuration synchronization, and dependent configuration will remain
- * intact. This affects only configuration synchronization; single import and
- * export of configuration are not affected.
- *
- * Drupal does not validate or sanity check the list of excluded modules. For
- * instance, it is your own responsibility to never exclude required modules,
- * because it would mean that the exported configuration can not be imported
- * anymore.
- *
- * This is an advanced feature and using it means opting out of some of the
- * guarantees the configuration synchronization provides. It is not recommended
- * to use this feature with modules that affect Drupal in a major way such as
- * the language or field module.
+ * Database settings:
  */
-# $settings['config_exclude_modules'] = ['devel', 'stage_file_proxy'];
+$databases['default']['default'] = array(
+  'driver' => 'mysql',
+  'database' => !isset($_ENV['MYSQL_DATABASE']) ? 'drupal' : $_ENV['MYSQL_DATABASE'],
+  'username' => !isset($_ENV['MYSQL_USER']) ? 'drupal' : $_ENV['MYSQL_USER'],
+  'password' => !isset($_ENV['MYSQL_PASSWORD']) ? 'drupal' : $_ENV['MYSQL_PASSWORD'],
+  'host' => 'db',
+  'prefix' => '',
+);
+
+/**
+ * Trusted host configuration.
+ */
+$settings["trusted_host_patterns"] = array(
+  '^localhost',
+  '^127.0.0.1',
+);
+
+$config['search_api.server.algolia']['backend_config']['api_key'] = '';
