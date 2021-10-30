@@ -1,0 +1,19 @@
+uuid: 4dacb471-cfb5-4efd-b02f-36a9ef43266f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_unique
+    - node.type.article
+id: node.article.field_unique
+field_name: field_unique
+entity_type: node
+bundle: article
+label: unique
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

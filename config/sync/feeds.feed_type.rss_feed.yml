@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.article.body
     - field.field.node.article.field_feed_source
     - field.field.node.article.field_source_link
+    - field.field.node.article.field_unique
     - node.type.article
   module:
     - node
@@ -73,3 +74,11 @@ mappings:
     unique: {  }
     settings:
       language: null
+  -
+    target: field_unique
+    map:
+      value: guid
+    unique:
+      value: '1'
+    settings:
+      language: ''
