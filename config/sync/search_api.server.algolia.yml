@@ -10,5 +10,5 @@ description: ''
 backend: search_api_algolia
 backend_config:
   application_id: ZMMQRNUWFY
-  api_key: a072c446b8a1e903a771c778187c5506
+  api_key: a072
   disable_truncate: 0
